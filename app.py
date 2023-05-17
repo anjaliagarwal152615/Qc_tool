@@ -1,21 +1,28 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 import pandas as pd
 
 app = Flask(__name__)
+
+defects = []
 
 @app.route('/')
 def home():
     return "Welcome to the Defect Tracking Tool"
 
-@app.route('/defects')
+@app.route('/defects', methods=['GET', 'POST'])
 def view_defects():
-    # Read defect data from CSV using pandas
-    defect_data = pd.read_csv(r'C:\Users\Anjali\Desktop\Qc tool\creditcard.csv')
-
-    # Convert defect data to a list of dictionaries
-    defects = defect_data.to_dict('records')
+    if request.method == 'POST':
+        defect = {
+            'ID': request.form['id'],
+            'Description': request.form['description'],
+            'Assigned To': request.form['assigned_to'],
+            'Status': request.form['status']
+        }
+        defects.append(defect)
+        return redirect('/defects')
 
     return render_template('defects.html', defects=defects)
 
 if __name__ == '__main__':
     app.run(debug=True)
+

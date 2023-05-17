@@ -1,26 +1,32 @@
-<!-- a basic html template for the defects page   -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Defect Tracking Tool</title>
 </head>
 
 <body>
-
-    <!-- header -->
-    <header>
-        <h1>Defects</h1>
-    </header>
-
-    <!-- main -->
-    <main>
-        <p>Defects</p>
-    </main>
-
+    <h1>Defects</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Assigned To</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for defect in defects %}
+            <tr>
+                <td>{{ defect['ID'] }}</td>
+                <td>{{ defect['Description'] }}</td>
+                <td>{{ defect['Assigned To'] }}</td>
+                <td>{{ defect['Status'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 
 </html>
